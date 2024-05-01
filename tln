@@ -1,0 +1,37 @@
+import numpy as np
+
+# Define the dataset
+X1 = np.array([0, 1, 1, 0, 1, 1, 0])
+X2 = np.array([1, 0, 0, 0, 1, 0, 1])
+X3 = np.array([1, 0, 1, 1, 1, 1, 1])
+Dk = np.array([1, 0, 1, 0, 1, 1, 0])
+
+# Combine inputs into a feature matrix
+X = np.vstack((X1, X2, X3))
+
+# Add a bias term to the inputs
+X_bias = np.vstack((X, np.ones_like(X[0])))
+
+# Initialize weights randomly
+weights = np.random.rand(X_bias.shape[0])
+# Set learning rate and number of epochs
+learning_rate = 0.1
+epochs = 100
+
+# Train the TLN using Perceptron learning rule
+for epoch in range(epochs):
+    for i in range(len(Dk)):
+        y = np.dot(weights, X_bias[:, i])
+        error = Dk[i] - (y >= 0).astype(int)
+        weights += learning_rate * error * X_bias[:, i]
+
+# Test the trained TLN
+def predict(input_vector):
+    input_with_bias = np.append(input_vector, 1)
+    result = np.dot(weights, input_with_bias)
+    return int(result >= 0)
+
+# Test the TLN with the given inputs
+for i in range(len(Dk)):
+    prediction = predict(X[:, i])
+    print(f"Predicted: {prediction}, Actual: {Dk[i]}")

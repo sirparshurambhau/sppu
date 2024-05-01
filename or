@@ -1,0 +1,19 @@
+# Define target data
+or_labels = np.array([[0], [1], [1], [1]], dtype=np.float32)
+
+# Define the model
+model_or = tf.keras.Sequential([
+    tf.keras.layers.Dense(units=1, input_shape=(2,), activation='sigmoid')
+])
+
+# Compile the model
+model_or.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+
+# Train the model
+model_or.fit(input_data, or_labels, epochs=1000, verbose=0)
+
+# Test the model
+or_predictions = model_or.predict(input_data)
+print("\nOR Gate Predictions:")
+print(or_predictions)
+
