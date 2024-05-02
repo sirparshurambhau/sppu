@@ -49,6 +49,9 @@ ________________________________________________________________________________
 
 Q4. Write a python program to to accept the strings which contain all vowels.
 =>
+def contains_all_vowels(string):
+    vowels = set('aeiou')
+    return vowels.issubset(set(string.lower()))
 def main():
     strings = []
     while True:
