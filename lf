@@ -1,0 +1,206 @@
+#Q1.1 lambda function that adds two numbers
+------------------------------------------------------------
+# Define the lambda function for addition
+addition = lambda x, y: x + y
+
+# Input two numbers from the user
+num1 = int(input("Enter the first number: "))
+num2 = int(input("Enter the second number: "))
+
+# Perform addition using the lambda function
+result = addition(num1, num2)
+
+# Display the result
+print("The sum of", num1, "and", num2, "is:", result)
+
+
+
+#2.lambda fun check even number
+-----------------------------------------------------------------------
+# Define the lambda function for checking if a number is even
+is_even = lambda x: x % 2 == 0
+
+# Test the lambda function
+number = int(input("Enter a number to check if it's even: "))
+if is_even(number):
+    print(number, "is even.")
+else:
+    print(number, "is odd.")
+
+
+#3. Lambda calculate factorial
+---------------------------------------------------------------------------------------
+# Define a lambda function to calculate the factorial of a number recursively
+factorial = lambda n: 1 if n == 0 else n * factorial(n - 1)
+
+# Test the lambda function
+number = int(input("Enter a number to calculate its factorial: "))
+print("The factorial of", number, "is:", factorial(number))
+
+
+#4. lambda fun to find max element in list
+------------------------------------------------------------------------------------
+# Define a lambda function to find the maximum element in a list
+find_max = lambda lst: max(lst)
+
+# Test the lambda function
+numbers = [5, 8, 2, 10, 3]
+maximum = find_max(numbers)
+print("The maximum element in the list is:", maximum)
+
+
+
+
+#input from user
+
+
+# Define a lambda function to find the maximum element in a list
+find_max = lambda lst: max(lst)
+
+# Prompt the user to input a list of numbers
+user_input = input("Enter a list of numbers separated by space: ")
+
+# Convert the input string into a list of integers
+numbers = list(map(int, user_input.split()))
+
+# Call the lambda function to find the maximum element
+max_element = find_max(numbers)
+
+# Print the maximum element
+print("The maximum element in the list is:", max_element)
+
+
+#Q2. 1. check palindrome
+----------------------------------------------------------------------------------
+# Define a lambda function to check if a string is a palindrome
+is_palindrome = lambda s: s == s[::-1]
+
+# Test the lambda function
+word = input("Enter a word to check if it's a palindrome: ")
+if is_palindrome(word):
+    print(word, "is a palindrome.")
+else:
+    print(word, "is not a palindrome.")
+
+
+
+#2.sort list of string alphabetically
+----------------------------------------------------------------------------------
+# Define a lambda function to sort a list of strings alphabetically
+sort_strings = lambda lst: sorted(lst)
+
+# Test the lambda function
+strings = input("Enter a list of strings separated by space: ").split()
+sorted_strings = sort_strings(strings)
+print("Sorted strings:", sorted_strings)
+
+
+#3. compute area of triangle
+------------------------------------------------------------------------------------
+# Define a lambda function to compute the area of a triangle
+triangle_area = lambda base, height: 0.5 * base * height
+
+# Test the lambda function
+base = float(input("Enter the base of the triangle: "))
+height = float(input("Enter the height of the triangle: "))
+area = triangle_area(base, height)
+print("The area of the triangle is:", area)
+
+
+
+#4. check if list is sublist of another
+-------------------------------------------------------------------------------------
+# Define a lambda function to check if a list is a sublist of another list
+is_sublist = lambda lst, sub_lst: all(x in lst for x in sub_lst)
+
+# Test the lambda function
+main_list = [1, 2, 3, 4, 5, 6, 7, 8]
+sub_list = [3, 4, 5]
+if is_sublist(main_list, sub_list):
+    print("The sublist is present in the main list.")
+else:
+    print("The sublist is not present in the main list.")
+
+
+
+#user input
+    
+
+# Define a lambda function to check if a list is a sublist of another list
+is_sublist = lambda sublist, mainlist: any(sublist == mainlist[i:i+len(sublist)] for i in range(len(mainlist)-len(sublist)+1))
+
+# Test the lambda function
+main_list = input("Enter the main list of elements separated by space: ").split()
+sub_list = input("Enter the sublist of elements separated by space: ").split()
+
+if is_sublist(sub_list, main_list):
+    print("The second list is a sublist of the first list.")
+else:
+    print("The second list is not a sublist of the first list.")
+
+
+
+
+#Q3 write a curried fun to calculate the power of number
+-----------------------------------------------------------------------------------
+def power(base):
+    # Define and return a function that takes the exponent as input
+    def inner_power(exponent):
+        return base ** exponent
+    return inner_power
+
+# Test the curried function
+base_number = int(input("Enter the base number: "))
+
+# Get the function to calculate power with a specific base
+power_function = power(base_number)
+
+# Now, prompt for the exponent
+exponent = int(input("Enter the exponent: "))
+
+# Calculate and print the result
+result = power_function(exponent)
+print(f"The result of {base_number} raised to the power of {exponent} is:", result)
+
+
+#Q4.write a curried fun to check string palindrome
+--------------------------------------------------------------------------------------------
+def is_palindrome(string):
+    # Remove spaces and convert to lowercase for case-insensitive comparison
+    s = string.replace(" ", "").lower()
+    return s == s[::-1]
+
+# Function that curries the is_palindrome function
+def curried_is_palindrome(string):
+    return is_palindrome(string)
+
+# Test the curried function
+input_string = input("Enter a string to check if it's a palindrome: ")
+
+if curried_is_palindrome(input_string):
+    print("Yes, it's a palindrome.")
+else:
+    print("No, it's not a palindrome.")
+
+
+#Q4.write a curried fun to calculate the hypotenuse of right-angle triangle
+
+----------------------------------------------------------------------------------------------
+def calculate_hypotenuse(side1):
+    # Define and return a function to calculate the hypotenuse
+    def inner_hypotenuse(side2):
+        return (side1**2 + side2**2) ** 0.5
+    return inner_hypotenuse
+
+# Test the curried function
+get_hypotenuse = calculate_hypotenuse(float(input("Enter the first side of the triangle: ")))
+
+# Prompt the user for the second side of the triangle
+side2 = int(input("Enter the second side of the triangle: "))
+
+# Calculate and print the result
+hypotenuse = get_hypotenuse(side2)
+print("The hypotenuse of the triangle is:", hypotenuse)
+
+
+

@@ -1,0 +1,192 @@
+#Q1 Matching Temperature
+-----------------------------------------------------------
+def temperature_match():
+    # Take user input for the temperature value
+    temperature = float(input("Enter the temperature in numerical value: "))
+
+    # Match the temperature against the patterns
+    if temperature > 30:
+        return "Hot"
+    elif 20 <= temperature <= 30:
+        return "Moderate"
+    else:
+        return "Cold"
+
+# Call the function and print the result
+result = temperature_match()
+print(f"The temperature is {result}.")
+
+
+#Q2. Matching data (leap,Christmas)
+----------------------------------------------------------------
+from datetime import datetime
+
+def date_match():
+    # Take user input for the date in the format "YYYY-MM-DD"
+    date_str = input("Enter the date in the format 'YYYY-MM-DD': ")
+
+    # Parse the input string into a date object
+    date = datetime.strptime(date_str, "%Y-%m-%d")
+
+    # Check if the year is a leap year
+    year = date.year
+    is_leap_year = (year % 4 == 0 and (year % 100 != 0 or year % 400 == 0))
+
+    # Check if the date is February in a leap year
+    if is_leap_year and date.month == 2:
+        return "Leap year"
+
+    # Check if the date is December 25th
+    if date.month == 12 and date.day == 25:
+        return "Christmas"
+
+    # Return "Regular day" if none of the patterns match
+    return "Regular day"
+
+# Call the function and print the result
+result = date_match()
+print(f"The date is a {result}.")
+
+
+
+
+#Q3. Matching Shapes (round, fore side, three side, unknown)
+--------------------------------------------------------------------
+def shape_match():
+    # Take user input for the shape
+    shape = input("Enter a geometric shape (e.g., 'circle', 'square', 'rectangle', 'triangle'): ").lower()
+
+    # Match the shape against the patterns
+    if shape == "circle":
+        return "Round shape"
+    elif shape == "square" or shape == "rectangle":
+        return "Four-sided shape"
+    elif shape == "triangle":
+        return "Three-sided shape"
+    else:
+        return "Unknown shape"
+
+# Call the function and print the result
+result = shape_match()
+print(f"The shape is a {result}.")
+
+
+#Q4.String match(vowel,python)
+---------------------------------------------------------
+def string_match():
+    # Take user input for the string
+    input_string = input("Enter a string: ")
+
+    # Check if the string starts with a vowel
+    vowels = 'aeiouAEIOU'
+    if input_string and input_string[0] in vowels:
+        return "Starts with a vowel"
+
+    # Check if the string ends with a digit
+    if input_string and input_string[-1].isdigit():
+        return "Ends with a digit"
+
+    # Check if the string contains the substring "python"
+    if "python" in input_string.lower():
+        return "Contains 'python'"
+
+    # Return "No match found" if none of the patterns match
+    return "No match found"
+
+# Call the function and print the result
+result = string_match()
+print(f"Result: {result}")
+
+
+#Q5.HOF find mode of number
+-----------------------------------------------
+def string_match():
+    # Take user input for the string
+    input_string = input("Enter a string: ")
+
+    # Check if the string starts with a vowel
+    vowels = 'aeiouAEIOU'
+    if input_string and input_string[0] in vowels:
+        return "Starts with a vowel"
+
+    # Check if the string ends with a digit
+    if input_string and input_string[-1].isdigit():
+        return "Ends with a digit"
+
+    # Check if the string contains the substring "python"
+    if "python" in input_string.lower():
+        return "Contains 'python'"
+
+    # Return "No match found" if none of the patterns match
+    return "No match found"
+
+# Call the function and print the result
+result = string_match()
+print(f"Result: {result}")
+
+
+
+#Q6. HOF TO reverse order of words in sentence
+------------------------------------------------------
+def reverse_words(sentence, splitter=str.split):
+    words = splitter(sentence)
+    reversed_sentence = ' '.join(reversed(words))
+    return reversed_sentence
+
+# Test the higher-order function
+sentence = input("Enter a sentence: ")
+reversed_sentence = reverse_words(sentence)
+print("Reversed sentence:", reversed_sentence)
+
+
+#Q7. HOF to calculate the circumference of a circle
+----------------------------------------------------------------
+import math
+
+def calculate_circumference(diameter_func):
+    def inner(radius):
+        diameter = diameter_func(radius)
+        circumference = math.pi * diameter
+        return circumference
+    return inner
+
+def calculate_diameter(radius):
+    return 2 * radius
+
+# Test the higher-order function
+radius = int(input("Enter the radius of the circle: "))
+
+circumference_func = calculate_circumference(calculate_diameter)
+circumference = circumference_func(radius)
+
+print("The circumference of the circle with radius", radius, "is:", circumference)
+
+
+
+#Q8. HOF ele in a triangular number sequence
+-----------------------------------------------------------------------------------
+def generate_triangular_numbers(limit):
+    triangular_numbers = []
+    total = 0
+    for i in range(1, limit + 1):
+        total += i
+        triangular_numbers.append(total)
+    return triangular_numbers
+
+def apply_function_to_triangular_sequence(func, limit):
+    triangular_numbers = generate_triangular_numbers(limit)
+    return [func(num) for num in triangular_numbers]
+
+# Test the higher-order function
+limit = int(input("Enter the limit for triangular number sequence: "))
+
+# Define a function to apply to the elements in the triangular number sequence
+def square(num):
+    return num ** 2
+
+triangular_sequence = apply_function_to_triangular_sequence(square, limit)
+print("Triangular number sequence with squares:", triangular_sequence)
+
+
+
+

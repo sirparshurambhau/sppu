@@ -1,0 +1,175 @@
+#Q1.recursive fun to calc factorial of num
+--------------------------------------------
+
+def factorial(n):
+    # Base case: if n is 0 or 1, return 1
+    if n == 0 or n == 1:
+        return 1
+    
+    # Recursive case: n * factorial of (n - 1)
+    return n * factorial(n - 1)
+
+def main():
+    # Take user input for the number
+    number = int(input("Enter a integer to calculate its factorial: "))
+
+    # Check if the input is non-negative
+    if number < 0:
+        print("Please enter a integer.")
+        return
+
+    # Calculate the factorial using the recursive function
+    result = factorial(number)
+    
+    # Print the result
+    print(f"The factorial of {number} is {result}.")
+
+# Run the program
+main()
+
+
+#Q2.Recursive fun to delete k-th node from linked list
+-------------------------------------------------------
+
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+class LinkedList:
+    def __init__(self):
+        self.head = None
+
+    def append(self, data):
+        """Append a new node with the given data to the end of the list."""
+        new_node = Node(data)
+        if not self.head:
+            self.head = new_node
+        else:
+            current = self.head
+            while current.next:
+                current = current.next
+            current.next = new_node
+
+    def display(self):
+        """Display the linked list."""
+        current = self.head
+        while current:
+            print(current.data, end=" -> ")
+            current = current.next
+        print("None")
+
+    def delete_kth_node(self, k):
+        """Delete the k-th node from the linked list using a recursive function."""
+        # Define the recursive function
+        def delete_recursive(current, pos):
+            # Base case: If current is None or pos is the same as k
+            if current is None:
+                return None
+            if pos == k:
+                return current.next  # Return the next node, effectively deleting the current node
+
+            # Recursively call the function for the next node
+            current.next = delete_recursive(current.next, pos + 1)
+            return current
+
+        # Check if the head is None
+        if self.head is None:
+            print("The list is empty.")
+            return
+        
+        # Call the recursive function starting from the head and position 0
+        self.head = delete_recursive(self.head, 0)
+
+def main():
+    # Create an instance of LinkedList
+    linked_list = LinkedList()
+
+    # Get user input for the linked list elements
+    elements = input("Enter the elements of the linked list separated by spaces: ").split()
+    for element in elements:
+        linked_list.append(int(element))
+
+    # Display the linked list before deletion
+    print("Linked list before deletion:")
+    linked_list.display()
+
+    # Get user input for the k-th position
+    k = int(input("Enter the position of the node to delete (0-based index): "))
+
+    # Delete the k-th node using the recursive function
+    linked_list.delete_kth_node(k)
+
+    # Display the linked list after deletion
+    print("Linked list after deletion:")
+    linked_list.display()
+
+# Run the program
+main()
+
+
+#Q.recursive function to find unique combination of numbers in a given array that sum up to target value.
+-------------------------------------------------------------------------------------------------------
+
+def find_combinations(array, target):
+    """
+    Find all unique combinations of numbers in the given array that sum up to the target value.
+
+    :param array: List of numbers to find combinations from.
+    :param target: The target sum value.
+    :return: A list of unique combinations that sum up to the target value.
+    """
+
+    def backtrack(start, target, current_combination, result):
+        """
+        Recursive function to backtrack through the array and find combinations.
+
+        :param start: The starting index of the current recursion level.
+        :param target: The remaining target sum value.
+        :param current_combination: The current combination being built.
+        :param result: The list to store the combinations that sum up to the target value.
+        """
+        # If the target is zero, we have found a valid combination
+        if target == 0:
+            result.append(list(current_combination))
+            return
+        
+        # If the target is negative, the current combination is not valid
+        if target < 0:
+            return
+        
+        # Iterate through the array starting from the current index
+        for i in range(start, len(array)):
+            # Skip duplicate elements at the same recursion level
+            if i > start and array[i] == array[i - 1]:
+                continue
+            
+            # Add the current element to the combination
+            current_combination.append(array[i])
+            
+            # Recurse with the current element added to the combination
+            backtrack(i, target - array[i], current_combination, result)
+            
+            # Remove the last element to backtrack
+            current_combination.pop()
+
+    # Sort the array to avoid duplicates and make the algorithm more efficient
+    array.sort()
+
+    # List to store the combinations that sum up to the target value
+    result = []
+
+    # Call the recursive function starting from index 0
+    backtrack(0, target, [], result)
+    
+    return result
+
+# Example usage:
+array = [1,2, 3, 6, 7]
+target = 7
+
+combinations = find_combinations(array, target)
+print(f"All unique combinations that sum up to {target}:")
+for combination in combinations:
+    print(combination)
+
