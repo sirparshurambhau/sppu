@@ -1,0 +1,214 @@
+Q1) Write a program to create a simple calculator Application using React.js
+➔app.js = import React, { useState } from 'react';
+import './App.css';
+function App() {
+ const [displayValue, setDisplayValue] = useState('');
+ const [result, setResult] = useState('');
+ const handleInput = (value) => {
+ setDisplayValue(displayValue + value);
+ };
+ const handleClear = () => {
+ setDisplayValue('');
+ setResult('');
+ };
+ const handleCalculate = () => {
+ try {
+ setResult(eval(displayValue));
+ } catch (error) {
+ setResult('Error');
+ }
+ };
+ return (
+ <div className="calculator">
+ <input
+ type="text"
+ className="display"
+ value={displayValue}
+ readOnly
+ />
+ <div className="buttons">
+ <button onClick={() => handleInput('7')}>7</button>
+ <button onClick={() => handleInput('8')}>8</button>
+ <button onClick={() => handleInput('9')}>9</button>
+ <button onClick={() => handleInput('/')}>/</button>
+ <button onClick={() => handleInput('4')}>4</button>
+ <button onClick={() => handleInput('5')}>5</button>
+ <button onClick={() => handleInput('6')}>6</button>
+ <button onClick={() => handleInput('*')}>*</button>
+ <button onClick={() => handleInput('1')}>1</button>
+ <button onClick={() => handleInput('2')}>2</button>
+ <button onClick={() => handleInput('3')}>3</button>
+ <button onClick={() => handleInput('-')}>-</button>
+ <button onClick={() => handleInput('0')}>0</button>
+ <button onClick={() => handleInput('.')}>.</button>
+ <button onClick={() => handleClear()}>AC</button>
+ <button onClick={() => handleInput('+')}>+</button>
+ <button onClick={() => handleCalculate()}>=</button>
+ </div>
+ {result && <div className="result">{result}</div>}
+ </div>
+ );
+}
+export default App;
+App.css = .calculator {
+ width: 300px;
+ margin: 0 auto;
+ padding: 20px;
+ border: 1px solid #ccc;
+ border-radius: 5px;
+ background-color: #f9f9f9;
+}
+.display {
+ width: calc(100% - 10px);
+ height: 40px;
+ margin-bottom: 10px;
+ padding: 5px;
+ font-size: 20px;
+ text-align: right;
+}
+.buttons {
+ display: grid;
+ grid-template-columns: repeat(4, 1fr);
+ grid-gap: 5px;
+}
+.buttons button {
+ width: calc(100% - 5px);
+ height: 40px;
+ font-size: 18px;
+ border: none;
+ outline: none;
+ cursor: pointer;
+ background-color: #ccc;
+}
+.buttons button:hover {
+ background-color: #bbb;
+}
+.result {
+ margin-top: 10px;
+ font-size: 20px;
+ text-align: right;
+}
+Q2) Create a Simple Login form using React.js
+➔app.js =import React, { useState } from "react";
+import ReactDOM from "react-dom";
+import "./App.css";
+function App() {
+ const [errorMessages, setErrorMessages] = useState({});
+ const [isSubmitted, setIsSubmitted] = useState(false);
+ const database = [
+ {
+ username: "user1",
+ password: "pass1"
+ },
+ {
+ username: "user2",
+ password: "pass2"
+ }
+ ];
+ const errors = {
+ uname: "invalid username",
+ pass: "invalid password"
+ };
+ const handleSubmit = (event) => {
+ //Prevent page reload
+ event.preventDefault();
+ var { uname, pass } = document.forms[0];
+ const userData = database.find((user) => user.username === uname.value);
+ if (userData) {
+ if (userData.password !== pass.value) {
+ setErrorMessages({ name: "pass", message: errors.pass });
+ } else {
+ setIsSubmitted(true);
+ }
+ } else {
+ setErrorMessages({ name: "uname", message: errors.uname });
+ }
+ };
+ const renderErrorMessage = (name) =>
+ name === errorMessages.name && (
+ <div className="error">{errorMessages.message}</div>
+ );
+ const renderForm = (
+ <div className="form">
+ <form onSubmit={handleSubmit}>
+ <div className="input-container">
+ <label>Username </label>
+ <input type="text" name="uname" required />
+ {renderErrorMessage("uname")}
+ </div>
+ <div className="input-container">
+ <label>Password </label>
+ <input type="password" name="pass" required />
+ {renderErrorMessage("pass")}
+ </div>
+ <div className="button-container">
+ <input type="submit" />
+ </div>
+ </form>
+ </div>
+ );
+ return (
+ <div className="app">
+ <div className="login-form">
+ <div className="title">Sign In</div>
+ {isSubmitted ? <div>User is successfully logged in</div> : renderForm}
+ </div>
+ </div>
+ );
+}
+export default App;
+App.css = .app {
+ font-family: sans-serif;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ flex-direction: column;
+ gap: 20px;
+ height: 100vh;
+ font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+ background-color: #f8f9fd;
+}
+input[type="text"],
+input[type="password"] {
+ height: 25px;
+ border: 1px solid rgba(0, 0, 0, 0.2);
+}
+input[type="submit"] {
+ margin-top: 10px;
+ cursor: pointer;
+ font-size: 15px;
+ background: #01d28e;
+ border: 1px solid #01d28e;
+ color: #fff;
+ padding: 10px 20px;
+}
+input[type="submit"]:hover {
+ background: #6cf0c2;
+}
+.button-container {
+ display: flex;
+ justify-content: center;
+}
+.login-form {
+ background-color: white;
+ padding: 2rem;
+ box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.list-container {
+ display: flex;
+}
+.error {
+ color: red;
+ font-size: 12px;
+}
+.title {
+ font-size: 25px;
+ margin-bottom: 20px;
+}
+.input-container {
+ display: flex;
+ flex-direction: column;
+ gap: 8px;
+ margin: 10px;
+}
+
